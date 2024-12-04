@@ -23,10 +23,10 @@ public class PacMan extends JPanel {
 
 
     private Image foodPacMan;
-    private Image monster1;
-    private Image monster2;
-    private Image monster3;
-    private Image monster4;
+    private Image monater1;
+    private Image monater2;
+    private Image monater3;
+    private Image monater4;
     private Image ScoreRed;
     private Image mUpPacmanImage;
     private Image mUpPacmanImage2;
@@ -121,10 +121,10 @@ public class PacMan extends JPanel {
 
     private void loadImages() {
         foodPacMan = new ImageIcon("src/Scor/Food_Pacmen.png").getImage();
-        monster1 = new ImageIcon("src/Monster/monster_pink.png").getImage();
-        monster2 = new ImageIcon("src/Monster/monster_blue.png").getImage();
-        monster3 = new ImageIcon("src/Monster/monster_red.png").getImage();
-        monster4 = new ImageIcon("src/Monster/monster_yellow.png").getImage();
+        monater1 = new ImageIcon("src/Monster/monster_pink.png").getImage();
+        monater2 = new ImageIcon("src/Monster/monster_blue.png").getImage();
+        monater3 = new ImageIcon("src/Monster/monster_red.png").getImage();
+        monater4 = new ImageIcon("src/Monster/monster_yellow.png").getImage();
         ScoreRed = new ImageIcon("src/Scor/IMG-20241121-WA0003.jpg").getImage();
 
         mUpPacmanImage = new ImageIcon("src/Image-Pac_Man/Up_Open.png").getImage();
@@ -221,13 +221,14 @@ public class PacMan extends JPanel {
     }
 
     private void drawMonster(Graphics g) {
-        g.drawImage(monster1, monsteresLocation[0][1] * TILE_SIZE, monsteresLocation[0][0] * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
-        g.drawImage(monster2, monsteresLocation[1][1] * TILE_SIZE, monsteresLocation[1][0] * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
-        g.drawImage(monster3, monsteresLocation[2][1] * TILE_SIZE, monsteresLocation[2][0] * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
-        g.drawImage(monster4, monsteresLocation[3][1] * TILE_SIZE, monsteresLocation[3][0] * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+        g.drawImage(monater1, monsteresLocation[0][1] * TILE_SIZE, monsteresLocation[0][0] * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+        g.drawImage(monater2, monsteresLocation[1][1] * TILE_SIZE, monsteresLocation[1][0] * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+        g.drawImage(monater3, monsteresLocation[2][1] * TILE_SIZE, monsteresLocation[2][0] * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+        g.drawImage(monater4, monsteresLocation[3][1] * TILE_SIZE, monsteresLocation[3][0] * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
     }
 
     private void paintMaze(Graphics g) {
+        // ציור המבוך והאוכל
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLUMNS; col++) {
                 if (maze[row][col] == 1) { // קיר
@@ -237,7 +238,7 @@ public class PacMan extends JPanel {
                 }
                 g.fillRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
-
+                // ציור האוכל
                 if (maze[row][col] == 2 && foodPacMan != null) {
                     g.drawImage(foodPacMan, col * TILE_SIZE + TILE_SIZE / 4, row * TILE_SIZE + TILE_SIZE / 4, TILE_SIZE / 2, TILE_SIZE / 2, null);
                 }
@@ -302,7 +303,6 @@ public class PacMan extends JPanel {
                             }
                     }
                 }
-                //בדיקה לכיון נוסף במקרה שחסום מ-4 כיוונים
                 if (right >= 0 && right < COLUMNS && maze[monsterRow][right] != 1 && monsterInPlace(monsterRow, right)) {
                     monsteresLocation[monster][1]++;
                     monsteresLocation[monster][2] = Direction.RIGHT.ordinal();
@@ -337,7 +337,6 @@ public class PacMan extends JPanel {
                             }
                     }
                 }
-                //בדיקה לכיון נוסף במקרה שחסום מ-4 כיוונים
                 if (left >= 0 && left < COLUMNS && maze[monsterRow][left] != 1 && monsterInPlace(monsterRow, left)) {
                     monsteresLocation[monster][1]--;
                     monsteresLocation[monster][2] = Direction.LEFT.ordinal();
@@ -367,7 +366,6 @@ public class PacMan extends JPanel {
                             }
                     }
                 }
-                //בדיקה לכיון נוסף במקרה שחסום מ-4 כיוונים
                 if (down >= 0 && down < ROWS && maze[down][monsterCol] != 1 && monsterInPlace(down, monsterCol)) {
                     monsteresLocation[monster][0]++;
                     monsteresLocation[monster][2] = Direction.DOWN.ordinal();
@@ -399,7 +397,6 @@ public class PacMan extends JPanel {
                     }
 
                 }
-                //בדיקה לכיון נוסף במקרה שחסום מ-4 כיוונים
                 if (up >= 0 && up < ROWS && maze[up][monsterCol] != 1 && monsterInPlace(up, monsterCol)) {
                     monsteresLocation[monster][0]--;
                     monsteresLocation[monster][2] = Direction.UP.ordinal();
@@ -407,15 +404,223 @@ public class PacMan extends JPanel {
             }
         }
 
+
+//        if (left >= 0 && left < ROWS && maze[left][monsterCol1] != 1 && monsterInPlace(left, monsterCol1)) {
+//            monsterDirection = Direction.LEFT;
+//            monsterRow1--;
+//        } else if (right >= 0 && right < ROWS && maze[right][monsterCol1] != 1 && monsterInPlace(right, monsterCol1)) {
+//            monsterDirection = Direction.RIGHT;
+//            monsterRow1++;
+//        } else if (up >= 0 && up < COLUMNS && maze[monsterRow1][up] != 1 && monsterInPlace(monsterRow1, up)) {
+//            monsterDirection = Direction.UP;
+//            monsterCol1--;
+//        } else if (down >= 0 && down < COLUMNS && maze[monsterRow1][down] != 1 && monsterInPlace(monsterRow1, down)) {
+//            monsterDirection = Direction.DOWN;
+//            monsterCol1++;
+//        }
+
+
+//        int newMonster1Row = monsterRow1 + rand.nextInt(3) - 1;
+//        int newMonster1Col = monsterCol1 + rand.nextInt(3) - 1;
+//        int newMonster2Row = monsterRow2 + rand.nextInt(3) - 1;
+//        int newMonster2Col = monsterCol2 + rand.nextInt(3) - 1;
+//        int newMonster3Row = monsterRow3 + rand.nextInt(3) - 1;
+//        int newMonster3Col = monsterCol3 + rand.nextInt(3) - 1;
+//        int newMonster4Row = monsterRow4 + rand.nextInt(3) - 1;
+//        int newMonster4Col = monsterCol4 + rand.nextInt(3) - 1;
+//
+//        if (isCanMove(newMonster1Row, newMonster1Col)) {
+//            monsterRow1 = newMonster1Row;
+//            monsterCol1 = newMonster1Col;
+//
+//        }
+//        if (isCanMove(newMonster2Row, newMonster2Col)) {
+//            monsterRow2 = newMonster2Row;
+//            monsterCol2 = newMonster2Col;
+//        }
+//        if (isCanMove(newMonster3Row, newMonster3Col)) {
+//            monsterRow3 = newMonster3Row;
+//            monsterCol3 = newMonster3Col;
+//        }
+//        if (isCanMove(newMonster4Row, newMonster4Col)) {
+//            monsterRow4 = newMonster4Row;
+//            monsterCol4 = newMonster4Col;
+//        }
+
     }
 
+//    public void moveMonster() {
+//
+//        int left = monsterCol1 - 1;
+//        int right = monsterCol1 + 1;
+//        int up = monsterRow1 - 1;
+//        int down = monsterRow1 + 1;
+//        Collections.shuffle(directions);
+//
+//        switch (monsterDirection) {
+//            case LEFT: {
+//                for (int i = 0; i < directions.size(); i++) {
+//                    switch (directions.get(i)) {
+//                        case UP: {
+//                            if (up >= 0 && up < COLUMNS && maze[up][monsterCol1] != 1 && monsterInPlace(up, monsterCol1)) {
+//                                monsterDirection = Direction.UP;
+//                                monsterRow1--;
+//                                return;
+//                            }
+//                        }
+//                        case LEFT:
+//                            if (left >= 0 && left < ROWS && maze[monsterRow1][left] != 1 && monsterInPlace(monsterRow1, left)) {
+//                                monsterDirection = Direction.LEFT;
+//                                monsterCol1--;
+//                                return;
+//                            }
+//                        case DOWN:
+//                            if (down >= 0 && down < COLUMNS && maze[down][monsterCol1] != 1 && monsterInPlace(down, monsterCol1)) {
+//                                monsterDirection = Direction.DOWN;
+//                                monsterRow1++;
+//                                return;
+//                            }
+//                    }
+//                }
+//                monsterCol1++;
+//                monsterDirection = Direction.RIGHT;
+//
+//            }
+//            case RIGHT: {
+//                for (int i = 0; i < directions.size(); i++) {
+//                    switch (directions.get(i)) {
+//                        case UP: {
+//                            if (up >= 0 && up < COLUMNS && maze[up][monsterCol1] != 1 && monsterInPlace(up, monsterCol1)) {
+//                                monsterDirection = Direction.UP;
+//                                monsterRow1--;
+//                                return;
+//                            }
+//                        }
+//                        case RIGHT:
+//                            if (right >= 0 && right < ROWS && maze[monsterRow1][right] != 1 && monsterInPlace(monsterRow1, right)) {
+//                                monsterDirection = Direction.RIGHT;
+//                                monsterCol1++;
+//                                return;
+//                            }
+//                        case DOWN:
+//                            if (down >= 0 && down < COLUMNS && maze[down][monsterCol1] != 1 && monsterInPlace(down, monsterCol1)) {
+//                                monsterDirection = Direction.DOWN;
+//                                monsterRow1++;
+//                                return;
+//                            }
+//                    }
+//                }
+//                monsterCol1--;
+//                monsterDirection = Direction.LEFT;
+//            }
+//            case UP: {
+//                for (int i = 0; i < directions.size(); i++) {
+//                    switch (directions.get(i)) {
+//                        case RIGHT: {
+//                            if (right >= 0 && right < ROWS && maze[monsterRow1][right] != 1 && monsterInPlace(monsterRow1, right)) {
+//                                monsterDirection = Direction.RIGHT;
+//                                monsterCol1++;
+//                                return;
+//                            }
+//                        }
+//                        case LEFT:
+//                            if (left >= 0 && left < ROWS && maze[monsterRow1][left] != 1 && monsterInPlace(monsterRow1, left)) {
+//                                monsterDirection = Direction.LEFT;
+//                                monsterCol1--;
+//                                return;
+//                            }
+//                        case UP:
+//                            if (up >= 0 && up < COLUMNS && maze[up][monsterCol1] != 1 && monsterInPlace(up, monsterCol1)) {
+//                                monsterDirection = Direction.UP;
+//                                monsterRow1--;
+//                                return;
+//                            }
+//                    }
+//                }
+//                monsterRow1++;
+//                monsterDirection = Direction.DOWN;
+//            }
+//            case DOWN: {
+//                for (int i = 0; i < directions.size(); i++) {
+//                    switch (directions.get(i)) {
+//
+//                        case RIGHT: {
+//                            if (right >= 0 && right < ROWS && maze[monsterRow1][right] != 1 && monsterInPlace(monsterRow1, right)) {
+//                                monsterDirection = Direction.RIGHT;
+//                                monsterCol1++;
+//                                return;
+//                            }
+//                        }
+//                        case LEFT:
+//                            if (left >= 0 && left < ROWS && maze[monsterRow1][left] != 1 && monsterInPlace(monsterRow1, left)) {
+//                                monsterDirection = Direction.LEFT;
+//                                monsterCol1--;
+//                                return;
+//                            }
+//                        case DOWN:
+//                            if (down >= 0 && down < COLUMNS && maze[down][monsterCol1] != 1 && monsterInPlace(down, monsterCol1)) {
+//                                monsterDirection = Direction.DOWN;
+//                                monsterRow1++;
+//                                return;
+//                            }
+//                    }
+//
+//                }
+//                monsterRow1--;
+//                monsterDirection = Direction.UP;
+//            }
+//
+//        }
+//
+//
+////        if (left >= 0 && left < ROWS && maze[left][monsterCol1] != 1 && monsterInPlace(left, monsterCol1)) {
+////            monsterDirection = Direction.LEFT;
+////            monsterRow1--;
+////        } else if (right >= 0 && right < ROWS && maze[right][monsterCol1] != 1 && monsterInPlace(right, monsterCol1)) {
+////            monsterDirection = Direction.RIGHT;
+////            monsterRow1++;
+////        } else if (up >= 0 && up < COLUMNS && maze[monsterRow1][up] != 1 && monsterInPlace(monsterRow1, up)) {
+////            monsterDirection = Direction.UP;
+////            monsterCol1--;
+////        } else if (down >= 0 && down < COLUMNS && maze[monsterRow1][down] != 1 && monsterInPlace(monsterRow1, down)) {
+////            monsterDirection = Direction.DOWN;
+////            monsterCol1++;
+////        }
+//
+//
+////        int newMonster1Row = monsterRow1 + rand.nextInt(3) - 1;
+////        int newMonster1Col = monsterCol1 + rand.nextInt(3) - 1;
+////        int newMonster2Row = monsterRow2 + rand.nextInt(3) - 1;
+////        int newMonster2Col = monsterCol2 + rand.nextInt(3) - 1;
+////        int newMonster3Row = monsterRow3 + rand.nextInt(3) - 1;
+////        int newMonster3Col = monsterCol3 + rand.nextInt(3) - 1;
+////        int newMonster4Row = monsterRow4 + rand.nextInt(3) - 1;
+////        int newMonster4Col = monsterCol4 + rand.nextInt(3) - 1;
+////
+////        if (isCanMove(newMonster1Row, newMonster1Col)) {
+////            monsterRow1 = newMonster1Row;
+////            monsterCol1 = newMonster1Col;
+////
+////        }
+////        if (isCanMove(newMonster2Row, newMonster2Col)) {
+////            monsterRow2 = newMonster2Row;
+////            monsterCol2 = newMonster2Col;
+////        }
+////        if (isCanMove(newMonster3Row, newMonster3Col)) {
+////            monsterRow3 = newMonster3Row;
+////            monsterCol3 = newMonster3Col;
+////        }
+////        if (isCanMove(newMonster4Row, newMonster4Col)) {
+////            monsterRow4 = newMonster4Row;
+////            monsterCol4 = newMonster4Col;
+////        }
+//
+//    }
 
     private boolean monsterInPlace(int row, int col) {
 
-        return (monsteresLocation[0][0] != row && monsteresLocation[0][1] != col)
-                || monsteresLocation[1][0] == row && monsteresLocation[1][1] == col ||
-                monsteresLocation[2][0] != row && monsteresLocation[2][1] != col
-                || monsteresLocation[3][0] == row && monsteresLocation[3][1] == col;
+        return (monsteresLocation[0][0] != row && monsteresLocation[0][1] != col) || monsteresLocation[1][0] == row && monsteresLocation[1][1] == col ||
+                monsteresLocation[2][0] != row && monsteresLocation[2][1] != col || monsteresLocation[3][0] == row && monsteresLocation[3][1] == col;
 
 
     }
@@ -429,11 +634,15 @@ public class PacMan extends JPanel {
                 collision(pacmanRow, monsteresLocation[3][0], pacmanCol, monsteresLocation[3][1])) {
 
             countLife--;
-
+//            System.out.println("התנגשות זוהתה! חיים נותרו: " + countLife);
+//            System.out.println(" פסילה ");
             return true;
+
         }
         return false;
+
     }
+
 
     public boolean collision(int pacmanRow, int monsterRow, int pacmanCol, int monsterCol) {
         int x = Math.abs(pacmanRow - monsterRow);
@@ -469,6 +678,8 @@ public class PacMan extends JPanel {
         if (checkCollisionWithMonsters()) {
 
             resetBoard();
+            System.out.println("פסילה לוגית 1");
+            // Countlife--; יכול לפסול פעמיים
 
         } else {
 
@@ -540,7 +751,7 @@ public class PacMan extends JPanel {
                 {1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
                 {1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
                 {1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
-                {1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1},
+                {1, 3, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 3, 1},
                 {1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1},
                 {1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1},
                 {1, 4, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 4, 1},
@@ -552,5 +763,26 @@ public class PacMan extends JPanel {
 
     }
 }
+
+
+
+
+
+
+ // ציור המבוך והאוכל
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLUMNS; col++) {
+                if (maze[row][col] == 1) {  // קיר
+                    // אם יש קיר, טוענים את התמונה
+                    if (imagesTils[row][col] == null) {  // רק אם התמונה לא טוענה כבר
+                        imagesTils[row][col] = new ImageIcon("src/Scor/Blue.jpg").getImage();
+                    }
+                    g.drawImage(imagesTils[row][col], col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                } else {
+                    g.setColor(Color.BLACK);
+                    g.fillRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                }
+
+
 
 
